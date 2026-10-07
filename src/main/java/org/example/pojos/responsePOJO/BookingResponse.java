@@ -1,6 +1,6 @@
 package org.example.pojos.responsePOJO;
 
-import com.thetestingacdemy.ex_07_Payload_management.Class.tools.requestPojos.Booking;
+import org.example.pojos.requestPOJO.Booking;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
