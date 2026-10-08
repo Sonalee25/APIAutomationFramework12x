@@ -112,60 +112,8 @@ public class PayloadManager {
     }
 
     public String setAuthPayload() {
+        return "{\"username\":\"admin\",\"password\":\"password123\"}";
     }
-
-
-//     Java Object -> JSON
-    public String setAuthPayload() {
-        Auth auth = new Auth();
-        auth.setUsername("admin");
-        auth.setPassword("password123");
-
-        gson = new Gson();
-        String jsonPayloadString = gson.toJson(auth);
-        System.out.println("Payload set to the -> " + jsonPayloadString);
-        return jsonPayloadString;
-
-    }
-
-    // DeSer ( JSON String -> Java Object
-    public String getTokenFromJSON(String tokenResponse){
-        gson = new Gson();
-        TokenResponse tokenResponse1 = gson.fromJson(tokenResponse, TokenResponse.class);
-        return  tokenResponse1.getToken();
-    }
-
-    // DeSer ( JSON String -> Java Object
-    public String getInvalidResponse(String invalidTokenResponse){
-        gson = new Gson();
-        InvalidTokenResponse tokenResponse1 = gson.fromJson(invalidTokenResponse, InvalidTokenResponse.class);
-        return  tokenResponse1.getReason();
-    }
-
-
-    // Java Object -> JSON
-    public String setLoginData(){
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("contact+aug@thetestingacademy.com");
-        loginRequest.setPassword("TtxkgQ!s$rJBk85");
-        loginRequest.setRemember(false);
-        loginRequest.setRecaptchaResponseField("");
-
-
-        gson = new Gson();
-        String jsonPayloadString = gson.toJson(loginRequest);
-        System.out.println("Payload Login to the -> " + jsonPayloadString);
-        return jsonPayloadString;
-
-    }
-
-    // DeSer ( JSON String -> Java Object
-    public LoginResponse getLoginData(String loginResponseEx){
-        gson = new Gson();
-        LoginResponse loginResponse = gson.fromJson(loginResponseEx, LoginResponse.class);
-        return  loginResponse;
- }
-        return ;
 
 
 }

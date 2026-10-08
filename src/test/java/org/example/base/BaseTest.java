@@ -1,6 +1,7 @@
 package org.example.base;
 
 import io.restassured.RestAssured;
+import org.example.asserts.AssertAction;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -17,7 +18,7 @@ public class BaseTest {
     //   // Base URL, Content Type - json - common
 
     public RequestSpecification requestSpecification;
-    public AssertActions assertActions;
+    public AssertAction assertActions;
     public PayloadManager payloadManager;
     public JsonPath jsonPath;
     public Response response;
@@ -38,8 +39,7 @@ public class BaseTest {
         // We need to setup the base URL. We need to setup the header.
         System.out.println("Starting of the Test");
         payloadManager = new PayloadManager();
-        assertActions = new AssertActions();
-
+        assertActions = new AssertAction();
 //        requestSpecification = RestAssured.given();
 //        requestSpecification.baseUri(APIConstants.BASE_URL);
 //        requestSpecification.contentType(ContentType.JSON).log().all();
@@ -63,20 +63,14 @@ public class BaseTest {
         // Setting the payload
         String payload = payloadManager.setAuthPayload();
         // Get the Token
-        response = requestSpecification.contentType(ContentType.JSON).body(payload).when().post();
-        String token = payloadManager.getResponseFromJSON(response.asString());
+        response = requestSpecification
+                .contentType(ContentType.JSON)
+                .body(payload)
+                .when()
+                .post();
+//        String token = payloadManager.getResponseFromJSON(response.asString());
+        String token = response.jsonPath().getString("token");
         return token;
 
-    }
-
-    private class AssertActions {
-        public void verifyStringKeyNotNull(Integer bookingid) {
-        }
-
-        public void verifyStatusCode(Response response, int i) {
-        }
-
-        public void verifyStringKey(String firstname, String pramod) {
-        }
     }
 }
