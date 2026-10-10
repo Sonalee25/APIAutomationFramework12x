@@ -2,9 +2,12 @@ package org.example.modules;
 
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
+import org.example.pojos.requestPOJO.Auth;
 import org.example.pojos.requestPOJO.Booking;
 import org.example.pojos.requestPOJO.Bookingdates;
 import org.example.pojos.responsePOJO.BookingResponse;
+import org.example.pojos.responsePOJO.InvalidTokenResponse;
+import org.example.pojos.responsePOJO.TokenResponse;
 
 public class PayloadManager {
     Gson gson;
@@ -112,8 +115,29 @@ public class PayloadManager {
     }
 
     public String setAuthPayload() {
-        return "{\"username\":\"admin\",\"password\":\"password123\"}";
+        Auth auth = new Auth();
+        auth.setUsername("admin");
+        auth.setPassword("password123");
+
+        gson = new Gson();
+        String jsonPayLoadString = gson.toJson(auth);
+        System.out.println("Payload set to -> " + jsonPayLoadString);
+        return jsonPayLoadString;
+     }
+
+     //Deserialization(Json to Java Object)
+    public String getTokenFromJSON(String tokenResponse) {
+        gson = new Gson();
+        TokenResponse tokenResponse1 = gson.fromJson(tokenResponse, TokenResponse.class);
+        return tokenResponse1.getToken();
     }
+    //Deser (Json String to JAVA obj)
+    public String getInvalidResponse(String invalidTokenResponse) {
+        gson = new Gson();
+        InvalidTokenResponse tokenResponse1 = gson.fromJson(invalidTokenResponse, InvalidTokenResponse.class);
+        return tokenResponse1.getReason();
+    }
+
 
 
 }
